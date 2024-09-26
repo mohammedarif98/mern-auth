@@ -1,7 +1,10 @@
 import User from '../models/userModel.js';
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
+<<<<<<< HEAD
 import jwt from 'jsonwebtoken';
+=======
+>>>>>>> a8574a26c0c05e419d90c5cd55eed8baebf0abde
 
 
 export const signUp = async(req,res,next)=>{
@@ -10,7 +13,11 @@ export const signUp = async(req,res,next)=>{
 
         const existingUser = await User.findOne({ email });
         if(existingUser){
+<<<<<<< HEAD
             throw errorHandler(400, "------> User already exists");
+=======
+            throw errorHandler(400, "----------->User already exists");
+>>>>>>> a8574a26c0c05e419d90c5cd55eed8baebf0abde
             // res.status(400).json({ message: "user is already existed" })
         }
 
