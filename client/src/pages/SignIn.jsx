@@ -1,17 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import { signInFailure,signInStart,signInSuccess } from '../redux/user/userSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const SignIn = () => {
 
-  const [ formData,setFormData ] = useState({ 
-    email: "",
-    password: ""
-  });
-  const [ loading,setLoading ] = useState(false);
-  const [ error,setError ] = useState(false)
-  const navigate = useNavigate()
+  const [ formData,setFormData ] = useState({ email: "",password: "" });
+  // const [ loading,setLoading ] = useState(false);
+  // const [ error,setError ] = useState(false)
+  const { loading,error } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (event)=>{
     setFormData({ ...formData,[event.target.id]:event.target.value })
@@ -20,8 +22,9 @@ const SignIn = () => {
   const handleSubmit = async(event)=>{
     event.preventDefault();
     try {
-      setLoading(true);
-      setError(false);
+      // setLoading(true);
+      dispatch(signInStart());
+      // setError(false);
       // const response = await fetch("http://localhost:4000/api/auth/signin",formData);
       const response = await fetch('/api/auth/signin', {
         method: 'POST',
@@ -31,20 +34,22 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-      setLoading(false);
+      // setLoading(false);
       if(data.success === false){
-        setError(true);
+        // setError(true);
+        dispatch(signInFailure(data))
         // Display error message for 5 seconds and then hide it
         setTimeout(() => {
           setError(false);
         }, 5000);
         return;
       }
+      dispatch(signInSuccess(data));
       navigate('/')
     } catch (error) {
-      setLoading(false);
-      console.error('There was an error signIn:', error);
-      setError(true);
+      // setLoading(false);
+      // setError(true);
+      dispatch(signInFailure(error))
       // Display error message for 5 seconds and then hide it
       setTimeout(() => {
         setError(false);
@@ -85,7 +90,7 @@ const SignIn = () => {
           <span className="text-sky-800 font-medium">Sign Up</span>
         </Link>
       </div>
-      <p className="text-red-700 text-center my-2">{error && "someting went wrong!"}</p>
+      <p className="text-red-700 text-center my-2">{error ? error.message || "someting went wrong!" : "" }</p>
     </div>
   )
 }
