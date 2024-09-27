@@ -38,10 +38,6 @@ const SignIn = () => {
       if(data.success === false){
         // setError(true);
         dispatch(signInFailure(data))
-        // Display error message for 5 seconds and then hide it
-        setTimeout(() => {
-          setError(false);
-        }, 5000);
         return;
       }
       dispatch(signInSuccess(data));
@@ -50,10 +46,6 @@ const SignIn = () => {
       // setLoading(false);
       // setError(true);
       dispatch(signInFailure(error))
-      // Display error message for 5 seconds and then hide it
-      setTimeout(() => {
-        setError(false);
-      }, 5000);
     }
   }
 
