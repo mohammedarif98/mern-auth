@@ -1,20 +1,40 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
-    <div className=' bg-cyan-800'>
-        <div className='flex justify-between items-center max-w-7xl mx-auto py-5'>
-            <Link to='/'><h1 className='font-bold text-xl'>Auth App</h1></Link>
-            <ul className='flex gap-6'>
-                <Link to='/'><li>Home</li></Link>
-                <Link to='/about'><li>About</li></Link>
-                <Link to='/sign-in'><li>Login</li></Link> 
-            </ul>
+    <div className=" bg-emerald-800">
+      <div className="flex justify-between items-center max-w-7xl mx-auto py-5">
+        <Link to="/">
+          <h1 className="font-bold text-xl">Auth App</h1>
+        </Link>
+        <ul className="flex gap-6">
+          <Link to="/">
+            <li>Home</li>
+          </Link>
+          <Link to="/about">
+            <li>About</li>
+          </Link>
+          <Link to="/profile">
+            {currentUser ? (
+              <img
+                src={currentUser.profilePicture}
+                className="h-8 w-8 rounded-full object-cover"
+              />
+            ) : (
+              <li>Login</li>
+            )}
+          </Link>
+        </ul>
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
 
-export default Header
+
+export default Header;

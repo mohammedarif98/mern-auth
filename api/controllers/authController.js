@@ -11,7 +11,7 @@ export const signUp = async(req,res,next)=>{
 
         const existingUser = await User.findOne({ email });
         if(existingUser){
-            throw errorHandler(400, "------> User already exists");
+            throw errorHandler(400, " User is already exists");
             // res.status(400).json({ message: "user is already existed" })
         }
 
@@ -32,11 +32,11 @@ export const signUp = async(req,res,next)=>{
 export const signIn = async(req,res,next)=>{
     const { email,password } = req.body;
     try {
-        const validUser = await User.findOne({email});
-        if(!validUser) return next(errorHandler(404,"----> user not found"));
+        const validUser = await User.findOne({ email });
+        if(!validUser) return next(errorHandler(404,"user not found"));
         
         const validPassword = bcryptjs.compareSync(password,validUser.password);
-        if(!validPassword) return next(errorHandler(404,"----> invalid credential "));
+        if(!validPassword) return next(errorHandler(404,"invalid credential "));
 
         // creating jwt token
         const token = jwt.sign({id: validUser._id},process.env.JWT_SECRET);
