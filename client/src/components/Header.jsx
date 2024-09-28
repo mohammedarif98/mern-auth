@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
 
 
 const Header = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const {currentUser} = useSelector((state) => state.user)
 
   return (
     <div className=" bg-emerald-800">
@@ -13,22 +13,29 @@ const Header = () => {
           <h1 className="font-bold text-xl">Auth App</h1>
         </Link>
         <ul className="flex gap-6">
-          <Link to="/">
-            <li>Home</li>
-          </Link>
-          <Link to="/about">
-            <li>About</li>
-          </Link>
-          <Link to="/profile">
-            {currentUser ? (
-              <img
-                src={currentUser.profilePicture}
-                className="h-8 w-8 rounded-full object-cover"
-              />
-            ) : (
-              <li>Login</li>
-            )}
-          </Link>
+          <li>
+            <Link to="/">
+                Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/about">
+                About
+            </Link>
+          </li>
+          <li>
+            <Link to="/profile">
+              {currentUser ? (
+                <img
+                  src={currentUser.profilePicture}
+                  alt="Profile"
+                  className="h-8 w-8 rounded-full object-cover"
+                />   
+              ) : (
+                "Login"
+              )}
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
