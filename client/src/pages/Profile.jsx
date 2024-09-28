@@ -26,10 +26,11 @@ const Profile = () => {
     const storageRef = ref(storage,fileName);
     const uploadTask = uploadBytesResumable(storageRef,image);
 
-    uploadTask.on('state_changed',(snapshot)=>{
-      const progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-      // console.log('uploading is progress ' + progress + " % done");
-      setImgUploadPercentage(Math.round(progress));
+    uploadTask.on('state_changed',
+      (snapshot)=>{
+        const progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+        // console.log('uploading is progress ' + progress + " % done");
+        setImgUploadPercentage(Math.round(progress));
     },
     (error)=>{
       setImageError(true);
@@ -50,7 +51,7 @@ const Profile = () => {
       <form className="flex flex-col gap-5">
         <input type="file" ref={ fileRef } hidden accept="image/*" onClick={ (event)=>setImage(event.target.files[0]) } />
         <img
-          src={currentUser.profilePicture}
+          src={formData.profilePicture || currentUser.profilePicture}
           alt=""
           className="h-24 w-24 self-center cursor-pointer rounded-full object-cover"
           onClick={() => fileRef.current.click()}
