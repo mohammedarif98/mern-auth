@@ -7,7 +7,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import { useDispatch,useSelector } from "react-redux";
-import { updateUserStart,updateUserSuccess,updateUserFailure, deleteUserStart,deleteUserFailure,deleteUserSuccess } from "../redux/user/userSlice";
+import { updateUserStart,updateUserSuccess,updateUserFailure, deleteUserStart,deleteUserFailure,deleteUserSuccess,signOutSuccess } from "../redux/user/userSlice";
 
 
 
@@ -103,6 +103,15 @@ export default function Profile(){
     }
   }
 
+  const handleSignOut = async() => {
+    try {
+      await fetch(`/api/auth/signout`);
+      dispatch(signOutSuccess())
+    } catch (error) {
+      console.log("error occured in signOut");
+    }
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-20">Profile Page</h1>
@@ -169,7 +178,7 @@ export default function Profile(){
         <span className="text-red-800 font-semibold cursor-pointer" onClick={ handleDeleteAccount }>
           Delete Account
         </span>
-        <span className="text-red-800 font-semibold cursor-pointer">
+        <span className="text-red-800 font-semibold cursor-pointer" onClick={ handleSignOut }>
           Sign Out
         </span>
       </div>
