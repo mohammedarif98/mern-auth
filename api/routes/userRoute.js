@@ -1,11 +1,12 @@
 import express from 'express';
-import { test,updateUserProfile } from '../controllers/userController.js';
+import { test,updateUserProfile,deleteUser } from '../controllers/userController.js';
 import { verifyToken } from '../utils/verifyUser.js';
 
 const router =  express.Router();
  
 
 router.get('/userApi',test)
-router.post('/update-profile/:id',verifyToken,updateUserProfile)
+router.post('/update-profile/:id',verifyToken,updateUserProfile);
+router.delete('/delete/:id',verifyToken,deleteUser);
 
 export default router;  

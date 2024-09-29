@@ -10,20 +10,20 @@ const Header = () => {
     <div className=" bg-emerald-800">
       <div className="flex justify-between items-center max-w-7xl mx-auto py-5">
         <Link to="/">
-          <h1 className="font-bold text-xl">Auth App</h1>
+          <h1 className="font-bold text-xl text-slate-100">Auth App</h1>
         </Link>
         <ul className="flex gap-6">
-          <li>
+          <li className="text-slate-100">
             <Link to="/">
                 Home
             </Link>
           </li>
-          <li>
+          <li className="text-slate-100">
             <Link to="/about">
                 About
             </Link>
           </li>
-          <li>
+          <li className="text-slate-100">
             <Link to="/profile">
               {currentUser ? (
                 <img
