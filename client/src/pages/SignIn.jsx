@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import { signInFailure,signInStart,signInSuccess } from '../redux/user/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import OAuth from '../components/Oauth'
+import OAuth from '../components/OAuth'
+
 
 
 const SignIn = () => {
